@@ -1014,7 +1014,7 @@ body .markdown-body
     page-break-after: avoid;
   }
 }
-</style><title>杂记</title></head><body><article class="markdown-body"><h1 id="seajs"><a name="user-content-seajs" href="#seajs" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>seajs用法</h1>
+</style><title>index</title></head><body><article class="markdown-body"><h1 id="seajs"><a name="user-content-seajs" href="#seajs" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>seajs用法</h1>
 <p>seajs解决了模块化命名冲突问题。<br />
   1. 遵循 CMD 规范模块化开发，依赖的自动加载、配置的简洁清晰。<br />
   2. 在html文件中引入sea.js脚本<br />
@@ -1157,4 +1157,16 @@ failurelimit,值为数字.<br />
       $(function() {<br />
           $(&ldquo;img.lazy&rdquo;).lazyload({effect: &ldquo;fadeIn&rdquo;});<br />
       });<br />
-    </script></p></article></body></html>
+    </script></p>
+<h1 id="_2"><a name="user-content-_2" href="#_2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>返回选中的文字</h1>
+<pre><code>function Select(){
+    if(document.selection)
+        return document.selection.CreatRange().text;   //IE
+    else return window.getSelection().toString();   //非IE
+}
+</code></pre>
+<h1 id="npm"><a name="user-content-npm" href="#npm" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>npm下载慢问题解决</h1>
+<pre><code>直接给npm配置taobao镜像的registry就好了，也不是非得装cnpm
+npm config set registry https://registry.npm.taobao.org
+然后直接用npm install gulp less --save-dev，就是从taobao镜像拿包了
+</code></pre></article></body></html>
