@@ -170,3 +170,8 @@ failurelimit,值为数字.
 	直接给npm配置taobao镜像的registry就好了，也不是非得装cnpm
 	npm config set registry https://registry.npm.taobao.org
 	然后直接用npm install gulp less --save-dev，就是从taobao镜像拿包了
+
+
+#reset.css的作用和用途："覆盖"浏览器的CSS默认属性。最最简单的说法就是把浏览器提供的默认样式覆盖掉!这就是CSS reset。
+	网址：http://cssreset.com   可以下载此文件
+	
