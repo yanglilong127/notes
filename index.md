@@ -175,3 +175,26 @@ failurelimit,值为数字.
 #reset.css的作用和用途："覆盖"浏览器的CSS默认属性。最最简单的说法就是把浏览器提供的默认样式覆盖掉!这就是CSS reset。
 	网址：http://cssreset.com   可以下载此文件
 	
+
+
+#用这个简易模版webpack-simple  下载npm init webpack-simple vue-demo
+	还得下载vue-router   npm install vue-router --save-dev
+	再导入文件再用，在main.js文件中
+	import VueRouter from 'vue-router'
+	在Vue.use(VueRouter)这样就可以用路由了
+	const router=new VueRouter(...)
+
+	#如果我们要导入外来的css包，例如animate.css
+	两种方法：
+	1).方法1
+	在App.vue文件中import './assets/css/animate.css'
+	首先要下载两个文件 css-loader 和style-loader包
+	npm install css-loader style-loader --save-dev
+	同时还要在webpack.config.js文件中进行配置，增加下面配置
+	{
+	    test: /\.css$/,
+	    loader: 'style-loader!css-loader'
+    } 
+    2)方法2  我们经常直接用的
+    在index.html文件中引入animate.css文件
+    	<link href="src/assets/css/animate.cs">
