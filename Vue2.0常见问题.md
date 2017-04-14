@@ -122,6 +122,7 @@ vue1.0实现父子组件的通信 -->通过props属性-->并且子组件可以�
 11)webpack2.0 插件的配置需要放到 plugins里面进行配置，不可放到rules里面进行配置
 
 
+
 vue:两种开发方式
 	1.直接页面级开发，script直接引入vue
 	2.工程性开发，webpack+loader\  vue-cli
@@ -134,3 +135,121 @@ webpack打包完很大   build.js
 	c).预渲染：prerender-spa-plugin
 	d).后台----开启压缩,gzip
 	e).异步加载组件   require.ensure
+
+
+
+//它用来监听路由的变化  ，当路由发生变化时触发
+在app.vue中监听路由
+  watch:{
+    $route(){
+      alert(111);
+    }
+  },
+
+ind是一个变量  需要这样写路由地址
+<router-link :to="'/article/'+ind">
+
+嵌套路由：
+<router-link :to="/login/user">
+{
+	path:'/login',
+	component:Login,
+	children:[
+		{
+			path:'user',
+			component:User
+		}
+	]
+}
+
+
+vuex管理
+	1.建立一个store文件夹，里面全部放js文件
+		|-actions.js
+			里面放两个对象eg:
+			在app.vue中用this.$store。dispatch('showHeader')指派
+				export default{
+					showHeader:({commit}) => {
+						commit('showHeader');
+					},
+					hideHeader:({commit}) => {
+						commit('hideHeader');
+					}
+				}
+		|-mutations.js
+			里面放函数处理方法和数据初始化
+			import getters from './getters'
+			const state={
+				header:true   //初始化state.header=true
+			};
+
+			const mutations={
+				showHeader(state){
+					state.header=true;
+				},
+				hideHeader(state){
+					state.header=false;
+				}
+			}
+
+			export default{
+				state,
+				mutations,
+				getters
+			}
+		|-getters.js
+			里面放返回数据
+				export default{
+					headerShow:(state) => {
+						return state.header;
+					}
+				}
+		|-index.js
+			入口文件
+				import Vue from 'vue'
+				import Vuex from 'vuex'
+
+				Vue.use(Vuex);
+
+				import mutations from './mutations'
+				import actions from './actions'
+				export default new Vuex.Store({
+					modules:{
+						mutations
+					},
+					actions
+				})
+
+	2.文件建好后在main.js中引入整个文件
+	import store from './store/'
+	并且将store放在实例里面
+		new Vue({
+		  store
+		})
+	3.在app.vue中引用数据
+		import {mapGetters,matpActions} from 'vuex'
+		export default {
+		  computed:mapGetters([
+		    'headerShow'
+		  ]),
+		  //它用来监听路由的变化
+		  watch:{
+		    $route(to,from){
+		      //console.log(to.path);  to.path为将跳转的地址
+		      if(to.path==='/top250'){
+		        this.$store.dispatch('showHeader');
+		      }
+		      else this.$store.dispatch('hideHeader')
+		    }
+		  }
+		}
+
+
+==================================
+axios:可以配置
+	目前为止axios不能Vue.sue(axios)
+
+	axios.interceptors.request.use();  //发送请求的配置
+	axios.interceptors.response.use(); //接收请求的配置
+	axios.defaults.baseURL='http://localhost:8080/'; //配置请求的跟路径
+	axios.defaults.headers.post['Content-Type']='application/x-www-form-urlencodes';  //设置post头部信息
